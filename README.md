@@ -2,6 +2,11 @@
 
 Additional examples for [TensorFlow Time Series(TFTS)](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/timeseries).
 
+## Predict a Time Series Using AR Model From CSV file
+
+![](https://github.com/BruceZhanKai/TFTS/blob/master/img/ar2-normal/predict_result.jpg?raw=true)
+
+![](https://github.com/BruceZhanKai/TFTS/blob/master/img/ar2-normal/predict_result-1.jpg?raw=true)
 
 ## Read a Time Series with TFTS
 
