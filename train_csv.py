@@ -8,9 +8,18 @@ import tensorflow as tf
 
 
 def main(_):
-    csv_file_name = './data/hour-post-single-3.csv'
+    csvname='hour-post-single-5'
+    csv_file_name = './data/'+csvname+'.csv'
+    modelname=   "ar"
+    batchsize=    32
+    windowsize=   36
+    preiodicity=  12
+    inwindowsize= 18
+    outwindowsize=18
+    modelallname="./model/"+modelname+"-"+str(batchsize)+"-"+str(windowsize)+"-"+str(preiodicity)+"-"+str(inwindowsize)+"-"+str(outwindowsize)+"-"+csvname
     reader = tf.contrib.timeseries.CSVReader(csv_file_name)
-    train_input_fn = tf.contrib.timeseries.RandomWindowInputFn(reader, batch_size=32, window_size=32)
+    train_input_fn = tf.contrib.timeseries.RandomWindowInputFn(reader, batch_size=batchsize,
+                                                               window_size=windowsize)
     with tf.Session() as sess:
         data = reader.read_full()
         coord = tf.train.Coordinator()
@@ -19,13 +28,14 @@ def main(_):
         coord.request_stop()
 
     ar = tf.contrib.timeseries.ARRegressor(
-        periodicities=12, input_window_size=16, output_window_size=16,
+        periodicities=preiodicity, input_window_size=inwindowsize, output_window_size=outwindowsize,
         num_features=1,
-        loss=tf.contrib.timeseries.ARModel.NORMAL_LIKELIHOOD_LOSS)#,
-        #optimizer=tf.train.AdamOptimizer(0.01))
+        loss=tf.contrib.timeseries.ARModel.NORMAL_LIKELIHOOD_LOSS,
+        #optimizer=tf.train.AdamOptimizer(0.1),
+        model_dir=modelallname)
         
 
-    ar.train(input_fn=train_input_fn, steps=40000)
+    ar.train(input_fn=train_input_fn, steps=6000)
 
     evaluation_input_fn = tf.contrib.timeseries.WholeDatasetInputFn(reader)
     # keys of evaluation: ['covariance', 'loss', 'mean', 'observed', 'start_tuple', 'times', 'global_step']
@@ -43,6 +53,8 @@ def main(_):
     plt.xlabel('time_step')
     plt.ylabel('values')
     plt.legend(loc=4)
+    plt.title("%s-%s-%s-%s-%s-%s-%s"%(modelname,batchsize,windowsize,preiodicity,inwindowsize,
+                                      outwindowsize,csvname))
     plt.savefig('predict_result.jpg')
     
     plt.figure(figsize=(15,5))
