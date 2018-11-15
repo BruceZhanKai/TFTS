@@ -1,6 +1,8 @@
 # TensorFlow-Time-Series-Examples
 
-Additional examples for [TensorFlow Time Series(TFTS)](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/timeseries).
+Additional examples for [TensorFlow Time Series(TFTS)](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/timeseries), [TFTS](https://github.com/jaungiers/LSTM-Neural-Network-for-Time-Series-Prediction), [TFTS](https://blog.csdn.net/u011974639/article/details/77856388), [TFTS](https://www.jianshu.com/p/38df71cad1f6).
+
+
 
 ## Predict a Time Series Using AR Model From CSV file
 
